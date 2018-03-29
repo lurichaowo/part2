@@ -15,17 +15,17 @@ string removeLeadingSpaces(string filename){
 		exit(1);
 	}
 	string line;
-	//getline(fin, line);
+	//REMOVED single getline(fin, line) as unecessary.
 	
+	//CHANGED TO GETLINE, as << delimits on ' '
 	while (getline(fin, line)){
-		//cout << "printing line: " << line << endl;		
 		for (int i = 0; i < line.length(); ++i)
 		{
 			char c = line[i];
 			if (!(c == ' ' || c == '\t')){
-				//cout << "IF STATEMENT char: " << c << endl;
 				new_s += line.substr(i);
 				new_s += "\n";
+				//Changed to break so while would continue.
 				break;
 			}
 
