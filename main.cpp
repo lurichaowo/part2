@@ -9,7 +9,7 @@ int main(){
 	string new_s;
 	cout << "Fixing bad-code.cpp" << endl;
 	new_s = removeLeadingSpaces(filename);
-	cout << new_s << endl;
+	cout << "REMOVE LEADING SPACES NEW_S: \n" << new_s << endl;
 	new_s = fixIndent(filename);
 	return 0;
 }

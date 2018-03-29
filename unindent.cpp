@@ -15,19 +15,22 @@ string removeLeadingSpaces(string filename){
 		exit(1);
 	}
 	string line;
-	getline(fin, line);
+	//getline(fin, line);
 	
-	while (fin >> line){
+	while (getline(fin, line)){
+		//cout << "printing line: " << line << endl;		
 		for (int i = 0; i < line.length(); ++i)
 		{
 			char c = line[i];
 			if (!(c == ' ' || c == '\t')){
-				new_s = line.substr(i, line.length());
-				new_s = new_s + "\n";
-				continue;
+				//cout << "IF STATEMENT char: " << c << endl;
+				new_s += line.substr(i);
+				new_s += "\n";
+				break;
 			}
 
 		}
 	}
+	fin.close();
 	return new_s;
 }

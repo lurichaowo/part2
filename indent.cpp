@@ -3,6 +3,7 @@
 #include <cctype>
 #include <fstream>
 #include "indent.h"
+#include "unindent.h"
 
 using namespace std;
 
@@ -26,23 +27,28 @@ string fixIndent(string filename){
 		exit(1);
 	}
 	string line;
-	getline(fin, line);
-
+	//std::ostringstream << removeLeadingSpaces("bad-code.cpp"));
 	int b_count = 0;
-	while (fin >> line){
+	while (getline(fin, line)){
+		cout << "fixIndent line: " << line << endl;
 		for (int i = b_count; i > 0; --i)
 		{
+			cout << "forloop run\n";
 			new_s += "\t";
+			cout << "CURRENT NEW_S: \n" << new_s << endl;
 		}
 		if (countChar(line, '{') > 0)
 		{
+			cout << "counting {\n" << endl;
 			b_count = b_count + countChar(line, '{');
+			cout << "bcount: " << b_count << endl;
 		}
 		if (countChar(line, '}') > 0)
 		{
 			b_count = b_count - countChar(line, '}');
 		}
-		new_s += "\n";
+		new_s += line + "\n";
+		cout << "FINAL NEW_S: \n" << new_s << endl;
 	}
 	return new_s;
 }
