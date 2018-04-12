@@ -2,7 +2,9 @@
 #include <string>
 #include <cctype>
 #include <fstream>
+#include <sstream>
 #include "indent.h"
+#include "unindent.h"
 
 using namespace std;
 
@@ -26,10 +28,15 @@ string fixIndent(string filename){
 		exit(1);
 	}
 	string line;
-	getline(fin, line);
-
+	//Created a std::stringstream for storing the unindented bad-code file.
+	std::stringstream unindented;
+	//Storing unindented code in stream.
+	unindented << removeLeadingSpaces("bad-code.cpp");
 	int b_count = 0;
-	while (fin >> line){
+	while (getline(unindented, line)){
+		//Added section for less indentation if } is first character.
+		if (line[0] == '}')
+			b_count--;
 		for (int i = b_count; i > 0; --i)
 		{
 			new_s += "\t";
@@ -42,7 +49,8 @@ string fixIndent(string filename){
 		{
 			b_count = b_count - countChar(line, '}');
 		}
-		new_s += "\n";
+		//Added original line back here to result.
+		new_s += line + "\n";
 	}
 	return new_s;
 }
